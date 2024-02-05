@@ -4,5 +4,5 @@ Built a Data Pipeline using Modern Techs
 ## Techonolgies Used
 | LANGUAGE / TOOLS / TECHNOLOGY |              FUNCTIONALITY                |
 | ----------------------------- | ----------------------------------------- |
-| *PYTHON* |                          _Programming_                         |
-| *DOCKER* |                        _To Containerize_                       |
+|           *PYTHON*            |               _Programming_               |
+|           *DOCKER*            |    _To Containerize the Applications_     |
