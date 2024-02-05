@@ -3,9 +3,9 @@
 Built a Data Pipeline using Modern Techs
 
 
-| LANGUAGE / TOOLS / TECHNOLOGY |                FUNCTIONALITY                       |
+| LANGUAGES / TOOLS / PLATFORMS |                     FUNCTIONALITY                  |
 | ----------------------------- | -------------------------------------------------- |
-|           *PYTHON*            |               _Programming Language_               |
+|           *PYTHON*            |          _Language for writing ELT Script_               |
 |           *DOCKER*            |         _To Containerize the Applications_         |
 |            *DBT*              |      _To Transform the Data in Data Warehouse_     |
 |          *AIRFLOW*            |  _To streamline & automate complex Data Workflows_ |
