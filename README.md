@@ -1,11 +1,8 @@
-
 ## Data-Pipeline-with-Python-Dbt-Airflow
+Built a Data Pipeline using Modern Techs
 
-## Built a Data Pipeline using Modern Tech like:
-| LANGUAGE / TOOLS / TECHNOLOGY |                      FUNCTIONALITY                  |
-| ----------------------------- | --------------------------------------------------- |
-
-|           *PYTHON*            |                Programming Language                 |
-|           *DOCKER*            |             To Containerize applications            |
-|             *DBT*             |      To Transform Data within Data Wareshouse       |
-|           *AIRFLOW*           |   To streamline & automate complex Data Workflows   |
+## Techonolgies Used
+| LANGUAGE / TOOLS / TECHNOLOGY |              FUNCTIONALITY                |
+| ----------------------------- | ----------------------------------------- |
+| *PYTHON* |                          _Programming_                         |
+| *DOCKER* |                        _To Containerize_                       |
