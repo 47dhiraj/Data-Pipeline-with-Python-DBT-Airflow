@@ -1,0 +1,6 @@
+
+## Docker Commands:
+
+1) To build image and run containers in detach mode (i.e in background)
+==> docker-compose up -d --build
+
