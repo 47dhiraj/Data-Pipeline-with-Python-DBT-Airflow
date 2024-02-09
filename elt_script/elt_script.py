@@ -2,42 +2,7 @@ import subprocess
 import time
 
 
-## Function to wait for the postgres to be ready before running ELT script
-def wait_for_postgres(host, max_retries=5, delay_seconds=5):
-    """Wait for PostgreSQL to become available."""
-
-    retries = 0
-
-    while retries < max_retries:
-
-        try:
-            result = subprocess.run(["pg_isready", "-h", host], check=True, capture_output=True, text=True)
-
-            if "accepting connections" in result.stdout:
-                print("Successfully connected to PostgreSQL!")
-                return True
-
-        except subprocess.CalledProcessError as e:
-            print(f"Error connecting to PostgreSQL: {e}")
-
-            retries += 1
-
-            print(f"Retrying in {delay_seconds} seconds... (Attempt {retries}/{max_retries})")
-
-            time.sleep(delay_seconds)
-
-    print("Max retries reached. Exiting.")
-    return False
-
-
-# calling wait_for_postgres() function before running the ELT process
-if not wait_for_postgres(host="source_postgres"):
-    exit(1)
-
-
-
-print("Initiate executing ELT script ...")
-
+print("Initiate executing ELT Process ...")
 
 # Configuration for the source PostgreSQL database
 source_config = {
@@ -72,6 +37,7 @@ subprocess_env = dict(PGPASSWORD=source_config['password'])
 # Executing dump_command using subprocess.run()
 subprocess.run(dump_command, env=subprocess_env, check=True)
 
+print("Data Dumping process completed !!")
 
 
 # Use psql to load the dumped SQL file into the destination database
@@ -90,4 +56,5 @@ subprocess_env = dict(PGPASSWORD=destination_config['password'])
 subprocess.run(load_command, env=subprocess_env, check=True)
 
 
-print("Finished executing ELT script ...")
+print("Data Loaded successfully in destination_db !!")
+print("ELT process executed successfully !!")

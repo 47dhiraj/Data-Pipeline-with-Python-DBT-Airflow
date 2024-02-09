@@ -14,6 +14,11 @@ services:
       POSTGRES_PASSWORD: secret
     volumes:
       - ./db_init/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 5
+      timeout: 5s
 
 
   destination_postgres:
@@ -30,14 +35,14 @@ services:
 
   elt_script:
     build:
-      context: ./elt_script                 # Directory containing the Dockerfile
-      dockerfile: Dockerfile                # Name of the Dockerfile
-    command: [ "python", "elt_script.py" ]  # command: ["./wait-for-it.sh", "source_postgres", "5432", "--", "python", "elt_script.py"]
+      context: ./elt_script             
+      dockerfile: Dockerfile           
+    command: [ "python", "elt_script.py" ]  
     networks:
       - elt_network
     depends_on:
-      - source_postgres
-      - destination_postgres
+      source_postgres:
+        condition: service_healthy
 
 
 networks:
