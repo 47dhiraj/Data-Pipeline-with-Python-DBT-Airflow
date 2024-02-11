@@ -23,6 +23,8 @@ services:
 
   destination_postgres:
     image: postgres:15.5
+    volumes:
+      - ./destination_postgres/destination_db:/var/lib/postgresql/data
     ports:
       - "5434:5432"
     networks:
@@ -31,17 +33,24 @@ services:
       POSTGRES_DB: destination_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      retries: 999
+      timeout: 60s
 
 
   elt_script:
     build:
-      context: ./elt_script             
-      dockerfile: Dockerfile           
+      context: ./elt_script                 # Directory containing the Dockerfile
+      dockerfile: Dockerfile                # Name of the Dockerfile
     command: [ "python", "elt_script.py" ]  
     networks:
       - elt_network
     depends_on:
       source_postgres:
+        condition: service_healthy
+      destination_postgres:
         condition: service_healthy
 
 
