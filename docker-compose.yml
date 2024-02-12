@@ -23,8 +23,8 @@ services:
 
   destination_postgres:
     image: postgres:15.5
-    volumes:
-      - ./destination_db_data:/var/lib/postgresql/data
+    # volumes:
+    #   - ./destination_db_data:/var/lib/postgresql/data
     ports:
       - "5434:5432"
     networks:
@@ -85,5 +85,5 @@ networks:
     driver: bridge
 
 
-volumes:
-  destination_db_data:
+# volumes:
+#   destination_db_data:
