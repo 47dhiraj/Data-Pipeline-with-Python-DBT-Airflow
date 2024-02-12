@@ -1,3 +1,6 @@
 destination_postgres
+destination_db_data
 .destination_postgres
-./destination_postgres/destination_db/
+.destination_db_data
+./destination_postgres/destination_db_data/
+./destination_db_data/

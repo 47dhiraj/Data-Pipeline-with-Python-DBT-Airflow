@@ -2,31 +2,30 @@ import subprocess
 import time
 
 
-# Since we have used, "healthcheck" feature in docker-compose.yml, so we don't need python code for waiting for 5 more seconds
-# so we have commented below wait_for_postgres() functionality
+# # Since we have used, "healthcheck" feature in docker-compose.yml, so we don't need python code for waiting for 5 more seconds
+# # so we have commented below wait_for_postgres() functionality
 
 # ## Function to wait for the postgres to be ready before running ELT script
 # def wait_for_postgres(host, max_retries=5, delay_seconds=5):
 #     """Wait for PostgreSQL to become available."""
-
 #     retries = 0
 
 #     while retries < max_retries:
 
 #         try:
 #             result = subprocess.run(["pg_isready", "-h", host], check=True, capture_output=True, text=True)
-
+            
 #             if "accepting connections" in result.stdout:
 #                 print("Successfully connected to PostgreSQL!")
 #                 return True
 
 #         except subprocess.CalledProcessError as e:
 #             print(f"Error connecting to PostgreSQL: {e}")
-
+            
 #             retries += 1
 
 #             print(f"Retrying in {delay_seconds} seconds... (Attempt {retries}/{max_retries})")
-
+            
 #             time.sleep(delay_seconds)
 
 #     print("Max retries reached. Exiting.")
@@ -36,6 +35,7 @@ import time
 # # calling wait_for_postgres() function before running the ELT process
 # if not wait_for_postgres(host="source_postgres"):
 #     exit(1)
+
 
 
 # Configuration for the source PostgreSQL database
@@ -55,14 +55,13 @@ destination_config = {
 }
 
 
-
 # Command to check if the data already in destination_db
 check_destination_db_tables = [
     'psql',
     '-h', destination_config['host'],
     '-U', destination_config['user'],
     '-d', destination_config['dbname'], 
-    '-c', "SELECT EXISTS (SELECT 1 FROM users LIMIT 1);"     
+    '-c', "SELECT EXISTS (SELECT 1 FROM public.users LIMIT 1);"     
 ]
 
 # Set the PGPASSWORD environment variable for the source & destination database 
@@ -112,4 +111,3 @@ if destination_db_result.returncode != 0:
 elif destination_db_result.returncode == 0:
     print("There may already have data inside the destination_db table OR Database connectivity issue.")
 
- 

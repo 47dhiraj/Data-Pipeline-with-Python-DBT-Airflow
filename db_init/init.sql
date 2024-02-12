@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
@@ -22,7 +22,7 @@ INSERT INTO users (first_name, last_name, email, date_of_birth) VALUES
 ('Grace', 'Wright', 'grace.wright@example.com', '1997-05-10'),
 ('William', 'Scott', 'william.scott@example.com', '1986-07-22');
 
-CREATE TABLE IF NOT EXISTS films (
+CREATE TABLE films (
     film_id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     release_date DATE,
@@ -53,7 +53,7 @@ INSERT INTO films (title, release_date, price, rating, user_rating) VALUES
 ('The Grand Budapest Hotel', '2014-03-28', 10.99, 'R', 4.4),
 ('La La Land', '2016-12-09', 11.99, 'PG-13', 4.5);
 
-CREATE TABLE IF NOT EXISTS film_category (
+CREATE TABLE film_category (
     category_id SERIAL PRIMARY KEY,
     film_id INTEGER REFERENCES films(film_id),
     category_name VARCHAR(50) NOT NULL
@@ -100,12 +100,12 @@ INSERT INTO film_category (film_id, category_name) VALUES
 (20, 'Drama'),
 (20, 'Music');
 
-CREATE TABLE IF NOT EXISTS actors (
+CREATE TABLE actors (
     actor_id SERIAL PRIMARY KEY,
     actor_name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS film_actors (
+CREATE TABLE film_actors (
     film_id INTEGER REFERENCES films(film_id),
     actor_id INTEGER REFERENCES actors(actor_id),
     PRIMARY KEY (film_id, actor_id)

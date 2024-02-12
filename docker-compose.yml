@@ -16,15 +16,15 @@ services:
       - ./db_init/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      retries: 5
-      timeout: 5s
+      interval: 2s
+      retries: 999
+      timeout: 60s
 
 
   destination_postgres:
     image: postgres:15.5
     volumes:
-      - ./destination_postgres/destination_db:/var/lib/postgresql/data
+      - ./destination_db_data:/var/lib/postgresql/data
     ports:
       - "5434:5432"
     networks:
@@ -35,7 +35,7 @@ services:
       POSTGRES_PASSWORD: secret
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 3s
+      interval: 2s
       retries: 999
       timeout: 60s
 
@@ -47,6 +47,8 @@ services:
     command: [ "python", "elt_script.py" ]  
     networks:
       - elt_network
+    # depends_on:
+    #   - destination_postgres
     depends_on:
       source_postgres:
         condition: service_healthy
@@ -54,6 +56,34 @@ services:
         condition: service_healthy
 
 
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-postgres:1.4.7
+    command:
+      [
+        "run",
+        "--profiles-dir",
+        "/root",
+        "--project-dir",
+        "/dbt",
+        "--full-refresh"
+      ]
+    networks:
+      - elt_network
+    volumes:
+      - ./data_transformations:/dbt
+      - ~/.dbt:/root
+    depends_on:
+      - elt_script
+    environment:
+      DBT_PROFILE: default
+      DBT_TARGET: dev
+
+
+
 networks:
   elt_network:
     driver: bridge
+
+
+volumes:
+  destination_db_data:
