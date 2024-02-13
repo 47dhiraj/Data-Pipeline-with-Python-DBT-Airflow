@@ -1,3 +1,12 @@
+*.log
+*.pot
+*.pyc
+__pycache__/
+
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
 destination_postgres
 destination_db_data
 .destination_postgres
