@@ -1,6 +1,6 @@
 
 ## Data-Pipeline-with-Python-Dbt-Airflow
-Built a Data Pipeline using Modern Techs
+Built a Data Pipeline using Modern Data Techs
 
 
 | LANGUAGES / TOOLS / PLATFORMS |                     FUNCTIONALITY                  |
